@@ -38,6 +38,8 @@ iPhone app ◀═══════ voice (WebSocket) ═══════▶ O
 
 > A real iPhone is required for voice. The iOS Simulator can build the app and run the tests, but it has no echo cancellation or Bluetooth audio.
 
+> **Older iOS versions:** the app can also be built for iPhones on earlier iOS versions (roughly iOS 17+). Lower **Minimum Deployments** on all 3 targets, then add `if #available(iOS 27, *)` fallbacks for the few iOS 27-only audio APIs it uses. In `AudioEngine.swift`, `installAudioTap`/`AVReadOnlyAudioPCMBuffer`, `connectNode` and `playAudio()` fall back to `installTap`, `connect` and `play()`. In `AudioSessionManager.swift`, the `didBecomeInactive`/`resumptionRecommendation` notifications fall back to `interruptionNotification`, and `.allowBluetoothHFP` falls back to `.allowBluetooth` on versions that predate it. The iOS 17 floor comes from SwiftData, `@Observable` and `AVAudioApplication`. See [D-025](docs/DECISIONS.md).
+
 ---
 
 ## Setup (about 10 minutes)
