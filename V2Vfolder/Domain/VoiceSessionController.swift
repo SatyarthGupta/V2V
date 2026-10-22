@@ -28,6 +28,8 @@ final class VoiceSessionController {
     /// Non-fatal server error to show in a banner; cleared on the next start.
     private(set) var lastServerError: RealtimeServerError?
     private(set) var isMuted = false
+    /// Where audio is going (debug overlay, D-022).
+    private(set) var currentRoute: AudioRoute = .unknown
 
     private let deps: VoiceSessionDependencies
 
@@ -173,11 +175,48 @@ final class VoiceSessionController {
                 await self.recoverEngine(engine)
             }
         })
+        // Headphones / earbuds connected or removed (PRD E4).
+        let routeChanges = deps.audioSession.routeChanges()
+        tasks.append(Task { [weak self] in
+            for await change in routeChanges {
+                guard let self, id == self.sessionID else { return }
+                await self.handleRouteChange(change)
+            }
+        })
+        currentRoute = deps.audioSession.currentRoute()
 
         state = .listening
         if isNewConversation {
             isNewConversation = false
             try? await client.send(.responseCreate) // Greeting (PRD F10).
+        }
+    }
+
+    /// Audio moved to a different device (D-010, PRD E4). The session is never torn down for this.
+    /// The engine itself is rebuilt only via `configurationChanges`, which iOS posts when the
+    /// hardware format actually changes, so a route switch isn't counted twice against the loop guard.
+    private func handleRouteChange(_ change: RouteChange) async {
+        Log.audio.info("route change \(String(describing: change.reason), privacy: .public) → \(change.route.outputName, privacy: .public)")
+        let previous = currentRoute
+        currentRoute = change.route
+
+        // iOS doesn't always say `.oldDeviceUnavailable`: switching Bluetooth off arrived as `.override`
+        // on device. So compare routes: external (earbuds/headphones) → built-in means the headset was lost.
+        let headsetLost = change.reason == .oldDeviceUnavailable || (previous.isExternal && !change.route.isExternal)
+        if headsetLost {
+            // The user didn't hear the rest, so stop the AI rather than let it talk out of the speaker.
+            await silenceAI(cancelOnServer: true)
+            if state == .aiSpeaking || state == .thinking { state = .listening }
+        }
+
+        // Falling back from earbuds often lands on the quiet earpiece.
+        deps.audioSession.routeToSpeakerIfOnReceiver()
+        currentRoute = deps.audioSession.currentRoute()
+
+        // Speaker hears the room → far-field noise reduction; headset → near-field (D-003).
+        if currentRoute.isBuiltInSpeaker != previous.isBuiltInSpeaker, let token, let client {
+            try? await client.send(.sessionUpdate(RealtimeSessionConfig(
+                instructions: token.instructions, voice: token.voice, outputIsBuiltInSpeaker: currentRoute.isBuiltInSpeaker)))
         }
     }
 
@@ -279,9 +318,20 @@ final class VoiceSessionController {
     }
 
     /// The user started talking: silence the AI now, then tell the server what was heard (D-004).
+    /// The server cancels the response itself (`interrupt_response`), so no cancel is sent.
     private func bargeIn() async {
-        if let responseID = activeResponseID {
+        await silenceAI(cancelOnServer: false)
+    }
+
+    /// Stops AI audio immediately, drops the rest of the current response, and trims the
+    /// model's memory to what was actually heard.
+    private func silenceAI(cancelOnServer: Bool) async {
+        let responseID = activeResponseID
+        if let responseID {
             cancelledResponseIDs.insert(responseID)
+        }
+        if cancelOnServer, responseID != nil {
+            try? await client?.send(.responseCancel)
         }
         guard let cut = engine?.flushPlayback() else { return }
         upsertTurn(id: cut.itemID, role: .assistant) { $0.wasInterrupted = true }

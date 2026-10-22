@@ -20,6 +20,7 @@ An iPhone app where the user taps once and has a spoken conversation with GPT Re
 - Tool calling / function calling, image input
 - Push-to-talk mode
 - Multi-language UI localization (the model may still reply in any language)
+- **Deferred to after the MVP ([D-027](DECISIONS.md))**: phone-call / Siri / background pause and resume (E5, E6), automatic network reconnect (E7 reconnect part), and silent reconnect at the 60-min session limit (E11)
 
 ## 3. Users
 | Persona | Need |
@@ -51,13 +52,13 @@ An iPhone app where the user taps once and has a spoken conversation with GPT Re
 | E2 | **Echo**: AI hears itself on speaker | No self-interruption when playing through the built-in speaker at max volume | A 60 s monologue on speaker produces 0 false `speech_started` events |
 | E3 | **Mic permission denied** | Clear explanation screen with an **Open Settings** button; no crash, no silent failure | Deny permission, then Start → explanation screen; granting in Settings and returning works without relaunch |
 | E4 | **AirPods / route change** mid-conversation | Audio moves to the new route (AirPods ↔ speaker ↔ wired/CarPlay) without dropping the session. On disconnect, playback pauses briefly then continues on speaker | Connect/disconnect AirPods 5× mid-reply; session survives, audio comes from the correct device |
-| E5 | **Phone call / Siri / alarm interruption** | Session pauses (mic off, playback stopped, state = Paused). When the interruption ends, it resumes automatically if the system says `shouldResume`, otherwise shows a "Tap to resume" control | Receive call → paused; hang up → resumes or offers resume; no zombie audio |
-| E6 | **Background** | Conversation continues in the background (audio background mode), including with the screen locked | Lock the phone mid-conversation; keep talking; replies continue |
-| E7 | **Network drop** | Detect within 5 s. Show "Reconnecting…" and retry with backoff (max ~30 s total). On success, start a new session seeded with recent transcript context. On failure, show an error with **Retry**. Never hang | Airplane mode on 10 s then off → reconnects. On for 60 s → error + Retry; UI stays responsive |
+| E5 | ⏸ **Deferred (D-027)**. **Phone call / Siri / alarm interruption** | Session pauses (mic off, playback stopped, state = Paused). When the interruption ends, it resumes automatically if the system says `shouldResume`, otherwise shows a "Tap to resume" control | Receive call → paused; hang up → resumes or offers resume; no zombie audio |
+| E6 | ⏸ **Deferred (D-027)**; best-effort only (audio background mode is on, untested). **Background** | Conversation continues in the background (audio background mode), including with the screen locked | Lock the phone mid-conversation; keep talking; replies continue |
+| E7 | 🟡 **MVP: error + Retry, never hang. Auto-reconnect deferred (D-027)**. **Network drop** | **MVP**: on socket close/error, show "Lost the connection to OpenAI" with **Retry**; release audio; never hang. **Deferred**: Detect within 5 s. Show "Reconnecting…" and retry with backoff (max ~30 s total). On success, start a new session seeded with recent transcript context. On failure, show an error with **Retry**. Never hang | Airplane mode on 10 s then off → reconnects. On for 60 s → error + Retry; UI stays responsive |
 | E8 | **API key never ships** | The app holds only a short-lived client secret minted by our token server. The OpenAI key exists only on the server | `strings` on the app binary shows no `sk-` key; the token expires within ~10 min |
 | E9 | **Token server abuse** | The server requires a shared app secret and rate-limits per IP | Request without the secret → 401; > N requests/min → 429 |
 | E10 | **Token server unreachable / Local Network denied** | If the Mac server can't be reached but the internet works, show "Can't reach the token server" with a checklist (same Wi-Fi, server running, Local Network allowed) + Open Settings. This must be distinct from "No internet" | Deny Local Network, or stop the server → that specific message, no hang |
-| E11 | **Max session length** | When OpenAI ends the session for its duration limit, reconnect silently with context and no re-greeting | Forced session-expired close → back to Listening, conversation continues |
+| E11 | ⏸ **Deferred (D-027)**; needs reconnect. MVP: the 60-min close shows the same error + Retry as E7. **Max session length** | When OpenAI ends the session for its duration limit, reconnect silently with context and no re-greeting | Forced session-expired close → back to Listening, conversation continues |
 
 ## 6. Non-functional requirements
 | Area | Target |

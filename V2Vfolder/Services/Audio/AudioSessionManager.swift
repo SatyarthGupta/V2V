@@ -7,8 +7,17 @@ nonisolated struct AudioRoute: Equatable, Sendable {
     let outputName: String
     let isBuiltInSpeaker: Bool
     let isBluetooth: Bool
+    /// Audio leaves the phone (Bluetooth, wired headphones, CarPlay…), not the built-in speaker or earpiece.
+    let isExternal: Bool
 
-    static let unknown = AudioRoute(outputName: "Unknown", isBuiltInSpeaker: false, isBluetooth: false)
+    init(outputName: String, isBuiltInSpeaker: Bool, isBluetooth: Bool, isExternal: Bool? = nil) {
+        self.outputName = outputName
+        self.isBuiltInSpeaker = isBuiltInSpeaker
+        self.isBluetooth = isBluetooth
+        self.isExternal = isExternal ?? (isBluetooth || !isBuiltInSpeaker)
+    }
+
+    static let unknown = AudioRoute(outputName: "Unknown", isBuiltInSpeaker: false, isBluetooth: false, isExternal: false)
 }
 
 /// A phone call, Siri or an alarm taking over the audio session (PRD E5).
@@ -145,9 +154,11 @@ nonisolated struct AudioSessionManager: AudioSessionManaging {
     static func route(from description: AVAudioSessionRouteDescription) -> AudioRoute {
         guard let output = description.outputs.first else { return .unknown }
         let bluetooth: Set<AVAudioSession.Port> = [.bluetoothHFP, .bluetoothA2DP, .bluetoothLE]
+        let builtIn: Set<AVAudioSession.Port> = [.builtInSpeaker, .builtInReceiver]
         return AudioRoute(outputName: output.portName,
                           isBuiltInSpeaker: output.portType == .builtInSpeaker,
-                          isBluetooth: bluetooth.contains(output.portType))
+                          isBluetooth: bluetooth.contains(output.portType),
+                          isExternal: !builtIn.contains(output.portType))
     }
 
     /// Interleaves two streams into one; finishes when both finish or the consumer stops.

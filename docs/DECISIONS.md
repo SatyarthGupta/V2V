@@ -193,3 +193,18 @@ Format: **Context → Decision → Why → Alternatives rejected → Consequence
   - Unified logging (`Log.audio` / `Log.session`) records state transitions, lifecycle events, mic chunk counts, the route and engine status. Tokens, audio and transcripts are never logged in clear.
 - **Why**: This is an iOS behaviour, not a bug we can avoid; every voice-processing app has to handle it. Without the logs we would have been guessing (the first hypothesis, the mic sample format, was wrong).
 - **Verified on device (iPhone 16, iOS 27.0.1)**: config change → rebuild → about 700 mic chunks sent, playback drains → listening, 7 barge-ins handled, no self-interruption on the loudspeaker. Covers M-01 and M-03, informally.
+
+### D-027 · MVP scope: defer phone-call/background handling and network auto-reconnect
+- **Date**: 2026-10-22 · **Status**: Accepted (user choice) · Defers PRD E5, E6, E11 and the reconnect part of E7. D-008, D-009 and D-011 stay as the design for when they're picked up
+- **Context**: The MVP (`v0.1-mvp`) works on device: talk, barge-in, echo cancellation, loudspeaker. The remaining edge cases are the most expensive to build and test (they need real calls and airplane-mode runs) and aren't needed to demo the core experience.
+- **Decision**: For the MVP:
+  - **E5 calls / Siri / alarms**: not handled. After an interruption, the user taps **End** and **Start** again.
+  - **E6 background**: best-effort only. `UIBackgroundModes = audio` stays on, so the conversation may continue with the screen locked, but it's untested and not promised.
+  - **E7 network drop**: keep the current behaviour. A socket close or error → `failed` → "Lost the connection to OpenAI" + **Retry**, with audio released and no hang. No automatic reconnect or context seeding.
+  - **E11 60-min limit**: same as E7 (error + Retry).
+  - **Kept in scope**: E1–E4, E8–E10, history, debug overlay, UI tests, device test run, demo checklist.
+- **Why**: These edge cases account for roughly 40% of the remaining build and test effort for a scenario a demo rarely hits. The core promise ("never hangs") is already met by the existing failure path.
+- **Consequences**:
+  - Beads `v2v-tto.3` (interruptions/background), `v2v-tto.5` (reconnect) and `v2v-tto.6` (session limit) are deferred, and their dependencies were removed from the device-test task.
+  - The already-built, tested pieces stay in the codebase for later: `ReconnectPolicy`, `cancellableCallback`/`ping`, and the iOS 27 interruption parsing in `AudioSessionManager`. They're currently unused, not deleted.
+  - The tests for deferred items are listed at the top of TEST_CASES.md.

@@ -2,6 +2,13 @@
 
 Related: [PRD](PRD.md) · [LLD](LLD.md)
 
+> **MVP scope ([D-027](DECISIONS.md))**: tests for deferred requirements are **not run for the MVP**:
+> - **E5/E6 calls and background**: U-09…U-12, UI-07, M-09…M-13
+> - **E7 auto-reconnect**: U-16…U-20, U-24, U-27, M-14 (reconnect half), M-16, M-21 (reconnect half)
+> - **E11 session limit**: U-28
+>
+> Still in scope for E7: a socket drop → `failed` + Retry, never hanging. Covered by the unit test "Socket drop mid-conversation → failed", and M-15 (Airplane mode → error + Retry, UI responsive).
+
 Levels: **U** = unit (Swift Testing, fakes) · **S** = server (vitest + supertest) · **UI** = XCUIAutomation · **M** = manual on a physical iPhone (required for real audio hardware).
 
 ## 1. Unit — VoiceSessionController (fakes for every service)

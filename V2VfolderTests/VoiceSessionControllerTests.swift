@@ -292,6 +292,132 @@ struct VoiceSessionEngineRecoveryTests {
 }
 
 @MainActor
+struct VoiceSessionRouteChangeTests {
+    private let speaker = AudioRoute(outputName: "Speaker", isBuiltInSpeaker: true, isBluetooth: false)
+    private let earbuds = AudioRoute(outputName: "Buds", isBuiltInSpeaker: false, isBluetooth: true)
+
+    private func sessionUpdates(_ h: Harness) -> [RealtimeSessionConfig] {
+        h.client.sent.compactMap { if case .sessionUpdate(let config) = $0 { config } else { nil } }
+    }
+
+    @Test("U-13: earbuds removed mid-reply → AI stops, truncate + cancel sent, session survives, speaker forced")
+    func earbudsRemovedMidReply() async throws {
+        let h = Harness()
+        h.audioSession.route = earbuds
+        try await h.startListening()
+        try await h.aiSpeaks(response: "r1", item: "item_7")
+        h.engine.nextCut = PlaybackCut(itemID: "item_7", playedMs: 900)
+        let overridesBefore = h.audioSession.speakerOverrideCount
+
+        h.audioSession.route = speaker
+        h.audioSession.emit(RouteChange(reason: .oldDeviceUnavailable, route: speaker))
+
+        try await expectEventually { h.count(.truncate(itemID: "item_7", contentIndex: 0, audioEndMs: 900)) == 1 }
+        #expect(h.count(.responseCancel) == 1)
+        #expect(h.controller.state == .listening)
+        #expect(h.client.disconnectCount == 0)
+        #expect(h.audioSession.speakerOverrideCount == overridesBefore + 1)
+        #expect(h.controller.turns.first { $0.id == "item_7" }?.wasInterrupted == true)
+        #expect(h.engine.rebuildCount == 0) // rebuilds only come via configurationChanges
+
+        // The rest of the cancelled reply must not play on the speaker.
+        h.client.emit(.outputAudioDelta(responseID: "r1", itemID: "item_7", audio: Data([1, 2]).base64EncodedString()))
+        try await settle()
+        #expect(h.engine.enqueued.count == 1)
+    }
+
+    @Test("U-13: switching to the speaker re-sends session.update with far-field noise reduction")
+    func farFieldOnSpeaker() async throws {
+        let h = Harness()
+        h.audioSession.route = earbuds
+        try await h.startListening()
+        #expect(sessionUpdates(h).last?.noiseReduction == .nearField)
+
+        h.audioSession.route = speaker
+        h.audioSession.emit(RouteChange(reason: .oldDeviceUnavailable, route: speaker))
+        try await expectEventually { sessionUpdates(h).count == 2 }
+        #expect(sessionUpdates(h).last?.noiseReduction == .farField)
+    }
+
+    @Test("U-14: earbuds connected → keep talking; near-field; nothing flushed or disconnected")
+    func earbudsConnected() async throws {
+        let h = Harness()
+        try await h.startListening()
+        try await h.aiSpeaks(response: "r1", item: "item_1")
+
+        h.audioSession.route = earbuds
+        h.audioSession.emit(RouteChange(reason: .newDeviceAvailable, route: earbuds))
+
+        try await expectEventually { sessionUpdates(h).count == 2 }
+        #expect(sessionUpdates(h).last?.noiseReduction == .nearField)
+        #expect(h.engine.flushCount == 0)
+        #expect(h.count(.responseCancel) == 0)
+        #expect(h.controller.state == .aiSpeaking)
+        #expect(h.controller.currentRoute == earbuds)
+    }
+
+    @Test("Bluetooth switched off → iOS reports .override; still treated as headset lost (found on device)")
+    func bluetoothOffReportedAsOverride() async throws {
+        let h = Harness()
+        h.audioSession.route = earbuds
+        try await h.startListening()
+        try await h.aiSpeaks(response: "r1", item: "item_9")
+        h.engine.nextCut = PlaybackCut(itemID: "item_9", playedMs: 1200)
+
+        h.audioSession.route = speaker
+        h.audioSession.emit(RouteChange(reason: .override, route: speaker))
+
+        try await expectEventually { h.count(.truncate(itemID: "item_9", contentIndex: 0, audioEndMs: 1200)) == 1 }
+        #expect(h.count(.responseCancel) == 1)
+        #expect(h.controller.state == .listening)
+    }
+
+    @Test("Speaker override while already on the speaker is not a headset loss")
+    func overrideOnSpeakerIgnored() async throws {
+        let h = Harness()
+        try await h.startListening()
+        try await h.aiSpeaks(response: "r1", item: "item_1")
+        h.audioSession.emit(RouteChange(reason: .override, route: speaker))
+        try await settle()
+        #expect(h.engine.flushCount == 0)
+        #expect(h.controller.state == .aiSpeaking)
+    }
+
+    @Test("AudioRoute: speaker and earpiece are built-in; Bluetooth and wired are external")
+    func externalClassification() {
+        #expect(!speaker.isExternal)
+        #expect(earbuds.isExternal)
+        #expect(AudioRoute(outputName: "Receiver", isBuiltInSpeaker: false, isBluetooth: false, isExternal: false).isExternal == false)
+        #expect(AudioRoute(outputName: "Headphones", isBuiltInSpeaker: false, isBluetooth: false).isExternal)
+    }
+
+    @Test("Earbuds removed while the AI is silent → no cancel, no truncate")
+    func removedWhileSilent() async throws {
+        let h = Harness()
+        h.audioSession.route = earbuds
+        try await h.startListening()
+        h.client.emit(.responseDone(responseID: "greeting", status: .completed, reason: nil))
+
+        h.audioSession.route = speaker
+        h.audioSession.emit(RouteChange(reason: .oldDeviceUnavailable, route: speaker))
+        try await expectEventually { h.controller.currentRoute == speaker }
+        try await settle()
+        #expect(h.count(.responseCancel) == 0)
+        #expect(!h.client.sent.contains { if case .truncate = $0 { true } else { false } })
+        #expect(h.controller.state == .listening)
+    }
+
+    @Test("Same-kind route change (speaker → speaker) doesn't spam session.update")
+    func noRedundantSessionUpdate() async throws {
+        let h = Harness()
+        try await h.startListening()
+        h.audioSession.emit(RouteChange(reason: .categoryChange, route: speaker))
+        try await settle()
+        #expect(sessionUpdates(h).count == 1)
+    }
+}
+
+@MainActor
 struct VoiceSessionTranscriptTests {
     @Test("User and assistant turns stream in order and finalise")
     func transcript() async throws {
