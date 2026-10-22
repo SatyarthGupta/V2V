@@ -22,9 +22,14 @@ nonisolated struct TokenService: TokenProviding {
 
     private let config: AppConfig
     private let transport: Transport
+    /// Used to tell "the Mac's server is unreachable" from "the phone is offline" (D-021, PRD E10).
+    private let network: NetworkMonitoring?
 
-    init(config: AppConfig, transport: @escaping Transport = { try await URLSession.shared.data(for: $0) }) {
+    init(config: AppConfig,
+         network: NetworkMonitoring? = nil,
+         transport: @escaping Transport = { try await URLSession.shared.data(for: $0) }) {
         self.config = config
+        self.network = network
         self.transport = transport
     }
 
@@ -46,9 +51,9 @@ nonisolated struct TokenService: TokenProviding {
             let finalRequest = request
             (data, response) = try await withTimeout(Self.timeout) { try await transport(finalRequest) }
         } catch let error as URLError {
-            throw Self.map(error)
+            throw Self.map(error, internetReachable: network?.isInternetReachable())
         } catch is TimeoutError {
-            throw SessionError.tokenServerUnreachable
+            throw network?.isInternetReachable() == false ? SessionError.noInternet : SessionError.tokenServerUnreachable
         }
 
         guard let http = response as? HTTPURLResponse else {
@@ -72,14 +77,24 @@ nonisolated struct TokenService: TokenProviding {
         }
     }
 
-    /// First-pass mapping. v2v-h28.10 refines `.tokenServerUnreachable` vs `.noInternet`
-    /// using NetworkMonitor, since a Local Network denial can also surface as "not connected".
-    static func map(_ error: URLError) -> SessionError {
-        switch error.code {
-        case .notConnectedToInternet, .dataNotAllowed, .internationalRoamingOff:
-            .noInternet
-        default:
-            .tokenServerUnreachable
+    /// Maps a transport failure to what the user should fix (PRD E10).
+    ///
+    /// A denied Local Network permission surfaces as `.notConnectedToInternet` even though the
+    /// phone is online, so when the network path is known to be up, every connection failure means
+    /// "can't reach the Mac". Without a monitor, fall back to the URL error code.
+    static func map(_ error: URLError, internetReachable: Bool? = nil) -> SessionError {
+        switch internetReachable {
+        case false?:
+            return .noInternet
+        case true?:
+            return .tokenServerUnreachable
+        case nil:
+            switch error.code {
+            case .notConnectedToInternet, .dataNotAllowed, .internationalRoamingOff:
+                return .noInternet
+            default:
+                return .tokenServerUnreachable
+            }
         }
     }
 

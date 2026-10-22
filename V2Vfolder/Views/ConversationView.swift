@@ -4,13 +4,21 @@ import UIKit
 /// The main screen: orb, transcript, and Start/End (PRD F1–F6, E3).
 struct ConversationView: View {
     @State var viewModel: ConversationViewModel
+    let historyViewModel: HistoryViewModel
     @Environment(\.openURL) private var openURL
+    /// Hidden debug overlay, toggled by triple-tapping the orb (D-022).
+    @State private var showDebug = false
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
                 OrbView(state: viewModel.orb)
                     .padding(.top, 8)
+                    .onTapGesture(count: 3) { showDebug.toggle() }
+
+                if showDebug {
+                    DebugOverlay(info: viewModel.debug)
+                }
 
                 statusCard
 
@@ -21,7 +29,10 @@ struct ConversationView: View {
             .padding()
             .navigationTitle("V2V")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { personaMenu }
+            .toolbar {
+                historyButton
+                personaMenu
+            }
         }
     }
 
@@ -64,6 +75,19 @@ struct ConversationView: View {
                 .controlSize(.large)
                 .accessibilityIdentifier("startButton")
             }
+        }
+    }
+
+    private var historyButton: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            NavigationLink {
+                HistoryView(viewModel: historyViewModel)
+            } label: {
+                Label("History", systemImage: "clock.arrow.circlepath")
+            }
+            // Leaving mid-conversation would hide the live session; end it first.
+            .disabled(viewModel.isSessionActive)
+            .accessibilityIdentifier("historyButton")
         }
     }
 

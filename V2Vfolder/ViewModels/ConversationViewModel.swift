@@ -35,6 +35,14 @@ enum OrbState: Equatable {
     }
 }
 
+struct DebugInfo: Equatable {
+    let state: String
+    let route: String
+    let events: [String]
+    let lastError: String?
+    let latency: String
+}
+
 @Observable
 final class ConversationViewModel {
     static let personaKey = "selectedPersona"
@@ -63,6 +71,28 @@ final class ConversationViewModel {
     var errorMessage: String? {
         if case .failed(let error) = controller.state { return Self.message(for: error) }
         return controller.lastServerError?.message
+    }
+
+    /// Snapshot for the hidden debug overlay (D-022). No tokens, audio or transcript text.
+    var debug: DebugInfo {
+        let route = controller.currentRoute
+        let error: String? = if case .failed(let error) = controller.state {
+            String(describing: error)
+        } else {
+            controller.lastServerError.map { "\($0.code ?? $0.type): \($0.message)" }
+        }
+        return DebugInfo(
+            state: String(describing: controller.state),
+            route: "\(route.outputName)\(route.isBluetooth ? " (Bluetooth)" : "")",
+            events: controller.recentEvents,
+            lastError: error,
+            latency: controller.lastReplyLatency.map(Self.milliseconds) ?? "–"
+        )
+    }
+
+    nonisolated static func milliseconds(_ duration: Duration) -> String {
+        let ms = Double(duration.components.seconds) * 1000 + Double(duration.components.attoseconds) / 1e15
+        return "\(Int(ms.rounded())) ms"
     }
 
     var canRetry: Bool {

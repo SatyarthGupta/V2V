@@ -123,6 +123,29 @@ nonisolated enum ServerEvent: Equatable, Sendable {
     case unknown(type: String)
 }
 
+extension ServerEvent {
+    /// The wire event type, for the debug overlay. Carries no payload data.
+    nonisolated var name: String {
+        switch self {
+        case .sessionCreated: "session.created"
+        case .sessionUpdated: "session.updated"
+        case .speechStarted: "speech_started"
+        case .speechStopped: "speech_stopped"
+        case .inputTranscriptionDelta: "input_transcription.delta"
+        case .inputTranscriptionCompleted: "input_transcription.completed"
+        case .responseCreated: "response.created"
+        case .outputAudioDelta: "output_audio.delta"
+        case .outputAudioDone: "output_audio.done"
+        case .outputTranscriptDelta: "output_transcript.delta"
+        case .outputTranscriptDone: "output_transcript.done"
+        case .responseDone(_, let status, _): "response.done (\(status))"
+        case .itemTruncated: "item.truncated"
+        case .error(let error): "error: \(error.code ?? error.type)"
+        case .unknown(let type): type
+        }
+    }
+}
+
 extension ServerEvent: Decodable {
     private enum Keys: String, CodingKey {
         case type, delta, transcript, response, session, error

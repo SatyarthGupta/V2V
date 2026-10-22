@@ -30,6 +30,12 @@ final class VoiceSessionController {
     private(set) var isMuted = false
     /// Where audio is going (debug overlay, D-022).
     private(set) var currentRoute: AudioRoute = .unknown
+    /// Last lifecycle event names, newest last (debug overlay).
+    private(set) var recentEvents: [String] = []
+    /// Time from the user's end of turn to the AI's first audio (PRD NFR latency).
+    private(set) var lastReplyLatency: Duration?
+    static let debugEventLimit = 20
+    private var speechStoppedAt: ContinuousClock.Instant?
 
     private let deps: VoiceSessionDependencies
 
@@ -44,6 +50,12 @@ final class VoiceSessionController {
     private var cancelledResponseIDs: Set<String> = []
     private var isNewConversation = true
     private var recentRebuilds: [ContinuousClock.Instant] = []
+    private var startedAt: Date?
+    private var currentPersona: Persona?
+    private var hasReportedFinish = false
+
+    /// Called once when a conversation with at least one turn ends or fails (saves history, F8).
+    var onSessionEnded: ((FinishedConversation) -> Void)?
 
     init(dependencies: VoiceSessionDependencies) {
         self.deps = dependencies
@@ -59,6 +71,12 @@ final class VoiceSessionController {
         lastServerError = nil
         isNewConversation = true
         recentRebuilds = []
+        startedAt = .now
+        currentPersona = persona
+        hasReportedFinish = false
+        recentEvents = []
+        lastReplyLatency = nil
+        speechStoppedAt = nil
 
         state = .checkingPermission
         switch deps.permissions.micStatus() {
@@ -103,8 +121,16 @@ final class VoiceSessionController {
     /// Ends the conversation from any state. Safe to call repeatedly.
     func end() async {
         sessionID = UUID()
+        reportFinished()
         await tearDown()
         state = .idle
+    }
+
+    /// Hands the transcript to history exactly once per conversation (end *or* failure, U-53).
+    private func reportFinished() {
+        guard !hasReportedFinish, !turns.isEmpty, let startedAt, let persona = currentPersona else { return }
+        hasReportedFinish = true
+        onSessionEnded?(FinishedConversation(turns: turns, persona: persona, startedAt: startedAt, endedAt: .now))
     }
 
     func setMuted(_ muted: Bool) {
@@ -242,6 +268,7 @@ final class VoiceSessionController {
 
     private func fail(_ error: SessionError) async {
         sessionID = UUID()
+        reportFinished()
         await tearDown()
         state = .failed(error)
     }
@@ -265,6 +292,7 @@ final class VoiceSessionController {
 
     private func handle(_ event: ServerEvent) async {
         Self.logEvent(event)
+        recordForDebug(event)
         switch event {
         case .sessionUpdated:
             await beginAudio()
@@ -314,6 +342,32 @@ final class VoiceSessionController {
 
         case .sessionCreated, .outputAudioDone, .itemTruncated, .unknown:
             break
+        }
+    }
+
+    /// Feeds the debug overlay (D-022): event names only (never payloads or transcripts),
+    /// plus end-of-turn → first-audio latency.
+    private func recordForDebug(_ event: ServerEvent) {
+        switch event {
+        case .speechStopped:
+            speechStoppedAt = .now
+        case .outputAudioDelta(let responseID, _, _):
+            if let stoppedAt = speechStoppedAt, !cancelledResponseIDs.contains(responseID) {
+                lastReplyLatency = ContinuousClock.now - stoppedAt
+                speechStoppedAt = nil
+            }
+        default:
+            break
+        }
+        // Per-chunk deltas would flood the list; only lifecycle events are kept.
+        switch event {
+        case .outputAudioDelta, .outputTranscriptDelta, .inputTranscriptionDelta:
+            return
+        default:
+            recentEvents.append(event.name)
+            if recentEvents.count > Self.debugEventLimit {
+                recentEvents.removeFirst(recentEvents.count - Self.debugEventLimit)
+            }
         }
     }
 
