@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "5A28A198-2FB0-419B-BA68-EF9119774578",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:V2Vfolder.xcodeproj",
+      "identifier" : "000000000000000100000000",
+      "name" : "V2Vfolder"
+    },
+    "testInteropMode" : "complete"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:V2Vfolder.xcodeproj",
+        "identifier" : "8CD0AF3F30894D5400A31DDE",
+        "name" : "V2VfolderTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:V2Vfolder.xcodeproj",
+        "identifier" : "8CD0AF4A30894D5900A31DDE",
+        "name" : "V2VfolderUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

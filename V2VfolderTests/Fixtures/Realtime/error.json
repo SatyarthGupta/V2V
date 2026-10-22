@@ -1,0 +1,11 @@
+{
+  "type": "error",
+  "event_id": "event_EbXVg3xcsSJyJBh0qkvc1",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "item_truncate_invalid_item_id",
+    "message": "Item with item_id not found: item_does_not_exist",
+    "param": null,
+    "event_id": "evt_client_1"
+  }
+}

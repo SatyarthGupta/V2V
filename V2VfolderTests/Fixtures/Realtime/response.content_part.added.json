@@ -1,0 +1,12 @@
+{
+  "type": "response.content_part.added",
+  "event_id": "event_EbXTuSsWc8lS0wTI49Jch",
+  "response_id": "resp_EbXTtmgAUuOqZdsHdMk95",
+  "item_id": "item_EbXTtxO9b5ERWTkn5CHfO",
+  "output_index": 0,
+  "content_index": 0,
+  "part": {
+    "type": "audio",
+    "transcript": ""
+  }
+}

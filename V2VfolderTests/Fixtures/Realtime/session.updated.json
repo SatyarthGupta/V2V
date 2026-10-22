@@ -1,0 +1,52 @@
+{
+  "type": "session.updated",
+  "event_id": "event_EbXTp6nKcWOUCYuRjUvis",
+  "session": {
+    "type": "realtime",
+    "object": "realtime.session",
+    "id": "sess_EbXTnM08Fz6QWudOPLtOn",
+    "model": "gpt-realtime-2.1",
+    "output_modalities": [
+      "audio"
+    ],
+    "instructions": "You are a voice assistant in a live spoken conversation on an iPhone.\nEverything…",
+    "tools": [],
+    "tool_choice": "auto",
+    "max_output_tokens": "inf",
+    "tracing": null,
+    "truncation": "auto",
+    "prompt": null,
+    "expires_at": 1792619141,
+    "audio": {
+      "input": {
+        "format": {
+          "type": "audio/pcm",
+          "rate": 24000
+        },
+        "transcription": {
+          "model": "gpt-4o-mini-transcribe",
+          "language": null,
+          "prompt": null
+        },
+        "noise_reduction": {
+          "type": "near_field"
+        },
+        "turn_detection": {
+          "type": "semantic_vad",
+          "eagerness": "auto",
+          "create_response": true,
+          "interrupt_response": true
+        }
+      },
+      "output": {
+        "format": {
+          "type": "audio/pcm",
+          "rate": 24000
+        },
+        "voice": "cedar",
+        "speed": 1
+      }
+    },
+    "include": null
+  }
+}

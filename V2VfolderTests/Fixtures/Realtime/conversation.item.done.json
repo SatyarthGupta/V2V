@@ -1,0 +1,17 @@
+{
+  "type": "conversation.item.done",
+  "event_id": "event_EbXTtP1TNzuaEUnkva3aW",
+  "previous_item_id": null,
+  "item": {
+    "id": "item_EbXTql9s6TeSAfdkdpJG7",
+    "type": "message",
+    "status": "completed",
+    "role": "user",
+    "content": [
+      {
+        "type": "input_audio",
+        "transcript": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,619 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 90;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		8CD0AF523089532200A31DDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = V2Vfolder;
+		};
+		8CD0AF543089532900A31DDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = V2Vfolder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000120 /* V2Vfolder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2Vfolder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD0AF4030894D5400A31DDE /* V2VfolderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = V2VfolderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD0AF4B30894D5900A31DDE /* V2VfolderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = V2VfolderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD0AF563089559700A31DDE /* V2Vfolder.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = V2Vfolder.xctestplan; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8CD0AF583089565E00A31DDE /* Exceptions for "V2Vfolder" folder in "V2Vfolder" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 000000000000000100000000 /* V2Vfolder */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		000000000000000000000010 /* V2Vfolder */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8CD0AF583089565E00A31DDE /* Exceptions for "V2Vfolder" folder in "V2Vfolder" target */,
+			);
+			path = V2Vfolder;
+			sourceTree = "<group>";
+		};
+		8CD0AF4130894D5400A31DDE /* V2VfolderTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = V2VfolderTests;
+			sourceTree = "<group>";
+		};
+		8CD0AF4C30894D5900A31DDE /* V2VfolderUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = V2VfolderUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000130000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF3D30894D5400A31DDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF4830894D5900A31DDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				8CD0AF563089559700A31DDE /* V2Vfolder.xctestplan */,
+				000000000000000000000010 /* V2Vfolder */,
+				8CD0AF4130894D5400A31DDE /* V2VfolderTests */,
+				8CD0AF4C30894D5900A31DDE /* V2VfolderUITests */,
+				000000000000000000000020 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000020 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000120 /* V2Vfolder.app */,
+				8CD0AF4030894D5400A31DDE /* V2VfolderTests.xctest */,
+				8CD0AF4B30894D5900A31DDE /* V2VfolderUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000100000000 /* V2Vfolder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000110000000 /* Build configuration list for PBXNativeTarget "V2Vfolder" */;
+			buildPhases = (
+				000000000000000120000000 /* Sources */,
+				000000000000000130000000 /* Frameworks */,
+				000000000000000140000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				000000000000000000000010 /* V2Vfolder */,
+			);
+			name = V2Vfolder;
+			productName = MyApp;
+			productReference = 000000000000000000000120 /* V2Vfolder.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8CD0AF3F30894D5400A31DDE /* V2VfolderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CD0AF4430894D5400A31DDE /* Build configuration list for PBXNativeTarget "V2VfolderTests" */;
+			buildPhases = (
+				8CD0AF3C30894D5400A31DDE /* Sources */,
+				8CD0AF3D30894D5400A31DDE /* Frameworks */,
+				8CD0AF3E30894D5400A31DDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CD0AF533089532200A31DDE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8CD0AF4130894D5400A31DDE /* V2VfolderTests */,
+			);
+			name = V2VfolderTests;
+			productName = V2VfolderTests;
+			productReference = 8CD0AF4030894D5400A31DDE /* V2VfolderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8CD0AF4A30894D5900A31DDE /* V2VfolderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CD0AF4F30894D5900A31DDE /* Build configuration list for PBXNativeTarget "V2VfolderUITests" */;
+			buildPhases = (
+				8CD0AF4730894D5900A31DDE /* Sources */,
+				8CD0AF4830894D5900A31DDE /* Frameworks */,
+				8CD0AF4930894D5900A31DDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CD0AF553089532900A31DDE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8CD0AF4C30894D5900A31DDE /* V2VfolderUITests */,
+			);
+			name = V2VfolderUITests;
+			productName = V2VfolderUITests;
+			productReference = 8CD0AF4B30894D5900A31DDE /* V2VfolderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
+				TargetAttributes = {
+					000000000000000100000000 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					8CD0AF3F30894D5400A31DDE = {
+						CreatedOnToolsVersion = 27.1;
+						TestTargetID = 000000000000000100000000;
+					};
+					8CD0AF4A30894D5900A31DDE = {
+						CreatedOnToolsVersion = 27.1;
+						TestTargetID = 000000000000000100000000;
+					};
+				};
+			};
+			buildConfigurationList = 000000000000000010000000 /* Build configuration list for PBXProject "V2Vfolder" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 90;
+			productRefGroup = 000000000000000000000020 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000100000000 /* V2Vfolder */,
+				8CD0AF3F30894D5400A31DDE /* V2VfolderTests */,
+				8CD0AF4A30894D5900A31DDE /* V2VfolderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF3E30894D5400A31DDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF4930894D5900A31DDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000120000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF3C30894D5400A31DDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		8CD0AF4730894D5900A31DDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CD0AF533089532200A31DDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* V2Vfolder */;
+			targetProxy = 8CD0AF523089532200A31DDE /* PBXContainerItemProxy */;
+		};
+		8CD0AF553089532900A31DDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* V2Vfolder */;
+			targetProxy = 8CD0AF543089532900A31DDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		000000000000000011000000 /* Debug configuration for PBXProject "V2Vfolder" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = H73M6BTR79;
+				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROJECT_UNIQUE_VALUE = M2N3050G;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+				WATCHOS_DEPLOYMENT_TARGET = 27.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		000000000000000012000000 /* Release configuration for PBXProject "V2Vfolder" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = H73M6BTR79;
+				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PROJECT_UNIQUE_VALUE = M2N3050G;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+				WATCHOS_DEPLOYMENT_TARGET = 27.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+		000000000000000111000000 /* Debug configuration for PBXNativeTarget "V2Vfolder" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = V2Vfolder/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = V2V;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "V2V connects to the token server on your Mac over Wi-Fi to start a secure voice session.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "V2V uses the microphone so you can talk with the AI assistant.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2Vfolder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		000000000000000112000000 /* Release configuration for PBXNativeTarget "V2Vfolder" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = V2Vfolder/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = V2V;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "V2V connects to the token server on your Mac over Wi-Fi to start a secure voice session.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "V2V uses the microphone so you can talk with the AI assistant.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2Vfolder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		8CD0AF4530894D5400A31DDE /* Debug configuration for PBXNativeTarget "V2VfolderTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2VfolderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/V2Vfolder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/V2Vfolder";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		8CD0AF4630894D5400A31DDE /* Release configuration for PBXNativeTarget "V2VfolderTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2VfolderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/V2Vfolder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/V2Vfolder";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+		8CD0AF5030894D5900A31DDE /* Debug configuration for PBXNativeTarget "V2VfolderUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2VfolderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = V2Vfolder;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		8CD0AF5130894D5900A31DDE /* Release configuration for PBXNativeTarget "V2VfolderUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.satyarthguptapersonalteam.V2VfolderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = V2Vfolder;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000000000000000010000000 /* Build configuration list for PBXProject "V2Vfolder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000011000000 /* Debug configuration for PBXProject "V2Vfolder" */,
+				000000000000000012000000 /* Release configuration for PBXProject "V2Vfolder" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		000000000000000110000000 /* Build configuration list for PBXNativeTarget "V2Vfolder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000111000000 /* Debug configuration for PBXNativeTarget "V2Vfolder" */,
+				000000000000000112000000 /* Release configuration for PBXNativeTarget "V2Vfolder" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		8CD0AF4430894D5400A31DDE /* Build configuration list for PBXNativeTarget "V2VfolderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CD0AF4530894D5400A31DDE /* Debug configuration for PBXNativeTarget "V2VfolderTests" */,
+				8CD0AF4630894D5400A31DDE /* Release configuration for PBXNativeTarget "V2VfolderTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		8CD0AF4F30894D5900A31DDE /* Build configuration list for PBXNativeTarget "V2VfolderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CD0AF5030894D5900A31DDE /* Debug configuration for PBXNativeTarget "V2VfolderUITests" */,
+				8CD0AF5130894D5900A31DDE /* Release configuration for PBXNativeTarget "V2VfolderUITests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000000 /* Project object */;
+}

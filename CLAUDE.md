@@ -1,6 +1,21 @@
-# Project Instructions for AI Agents
+# V2V — Speech-to-Speech iOS app (gpt-realtime-2.1)
 
-This file provides instructions and context for AI coding agents working on this project.
+## Docs (read before implementing)
+- `docs/PRD.md`: requirements, edge cases E1–E9
+- `docs/HLD.md`: architecture, state machine, edge-case mechanisms
+- `docs/LLD.md`: types, protocols, algorithms, token server API
+- `docs/TEST_CASES.md`: test IDs (U-xx, S-xx, UI-xx, M-xx) referenced in beads acceptance criteria
+- `docs/DECISIONS.md`: design decisions with reasoning. **Append a new D-xxx entry for every significant design decision or change.**
+
+## Task tracking: beads (`bd`)
+The implementation plan lives in beads (prefix `v2v-`, 7 epics). See the managed block below.
+- Each issue's acceptance criteria name test IDs from `docs/TEST_CASES.md`. Close an issue only when those tests pass.
+- File newly discovered work with `bd create ... --deps discovered-from:<id>`.
+
+## Conventions
+- MVVM: Views → `@Observable @MainActor` ViewModels → `VoiceSessionController` → protocol-backed services
+- Swift Concurrency only, no Combine. Swift Testing for unit tests, XCUIAutomation for UI tests.
+- The OpenAI API key lives only in `token-server/.env`. Never in the app or in git.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:1105d646 -->
 ## Beads Issue Tracker
@@ -56,22 +71,3 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 - Do not commit or push without clear authority from the active profile or the current user request.
 - If a required sync or push is blocked, stop and report the exact command and error.
 <!-- END BEADS INTEGRATION -->
-
-
-## Build & Test
-
-_Add your build and test commands here_
-
-```bash
-# Example:
-# npm install
-# npm test
-```
-
-## Architecture Overview
-
-_Add a brief overview of your project architecture_
-
-## Conventions & Patterns
-
-_Add your project-specific conventions here_

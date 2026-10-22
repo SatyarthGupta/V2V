@@ -1,0 +1,27 @@
+{
+  "type": "response.created",
+  "event_id": "event_EbXTt3MhnvU5ajIhq4b4m",
+  "response": {
+    "object": "realtime.response",
+    "id": "resp_EbXTtmgAUuOqZdsHdMk95",
+    "status": "in_progress",
+    "status_details": null,
+    "output": [],
+    "conversation_id": "conv_EbXToiYx2giIwvNdkUOYb",
+    "output_modalities": [
+      "audio"
+    ],
+    "max_output_tokens": "inf",
+    "audio": {
+      "output": {
+        "format": {
+          "type": "audio/pcm",
+          "rate": 24000
+        },
+        "voice": "cedar"
+      }
+    },
+    "usage": null,
+    "metadata": null
+  }
+}

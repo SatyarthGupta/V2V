@@ -5,3 +5,11 @@
 .beads-credential-key
 .beads/proxieddb/
 *.gate.lock*
+
+# Local secrets (D-019/D-021)
+V2Vfolder/Config/Secrets.swift
+
+# Xcode / macOS
+xcuserdata/
+DerivedData/
+.DS_Store

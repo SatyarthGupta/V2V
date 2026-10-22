@@ -1,0 +1,72 @@
+{
+  "type": "response.done",
+  "event_id": "event_EbXTvJgHCeh7wswhFwici",
+  "response": {
+    "object": "realtime.response",
+    "id": "resp_EbXTtmgAUuOqZdsHdMk95",
+    "status": "cancelled",
+    "status_details": {
+      "type": "cancelled",
+      "reason": "turn_detected"
+    },
+    "output": [
+      {
+        "id": "item_EbXTtxO9b5ERWTkn5CHfO",
+        "type": "message",
+        "status": "incomplete",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "output_audio",
+            "transcript": "Alright, let me spin this into a cozy little adventure with a very hungry dragon."
+          }
+        ],
+        "phase": "commentary"
+      },
+      {
+        "id": "item_EbXTvkSD3JVrgNilaR0OS",
+        "type": "message",
+        "status": "incomplete",
+        "role": "assistant",
+        "content": [],
+        "phase": "final_answer"
+      }
+    ],
+    "conversation_id": "conv_EbXToiYx2giIwvNdkUOYb",
+    "output_modalities": [
+      "audio"
+    ],
+    "max_output_tokens": "inf",
+    "audio": {
+      "output": {
+        "format": {
+          "type": "audio/pcm",
+          "rate": 24000
+        },
+        "voice": "cedar"
+      }
+    },
+    "usage": {
+      "total_tokens": 466,
+      "input_tokens": 267,
+      "output_tokens": 199,
+      "input_token_details": {
+        "text_tokens": 235,
+        "audio_tokens": 32,
+        "image_tokens": 0,
+        "cached_tokens": 0,
+        "cached_tokens_details": {
+          "text_tokens": 0,
+          "audio_tokens": 0,
+          "image_tokens": 0
+        }
+      },
+      "output_token_details": {
+        "text_tokens": 85,
+        "audio_tokens": 114,
+        "reasoning_tokens": 35
+      }
+    },
+    "metadata": null
+  }
+}
