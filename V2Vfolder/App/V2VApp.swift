@@ -3,7 +3,7 @@ import SwiftUI
 
 @main
 struct V2VApp: App {
-    @State private var dependencies = AppDependencies.live()
+    @State private var dependencies = AppDependencies.forLaunch()
 
     var body: some Scene {
         WindowGroup {

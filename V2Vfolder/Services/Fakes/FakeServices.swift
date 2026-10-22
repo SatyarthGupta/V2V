@@ -62,6 +62,8 @@ nonisolated final class FakeRealtimeClient: RealtimeClienting, @unchecked Sendab
     private(set) var disconnectCount = 0
     /// Sends `session.created` then `session.updated` automatically after `session.update`.
     var autoConfirmSession = true
+    /// UI tests: answer `response.create` (the greeting) with this assistant transcript.
+    var scriptedGreeting: String?
 
     init(connectError: Error? = nil) { _connectError = connectError }
 
@@ -86,6 +88,11 @@ nonisolated final class FakeRealtimeClient: RealtimeClienting, @unchecked Sendab
             return false
         }
         if confirm { emit(.sessionUpdated) }
+        if event == .responseCreate, let greeting = scriptedGreeting {
+            emit(.responseCreated(responseID: "resp_fake"))
+            emit(.outputTranscriptDone(responseID: "resp_fake", itemID: "item_fake_greeting", transcript: greeting))
+            emit(.responseDone(responseID: "resp_fake", status: .completed, reason: nil))
+        }
     }
 
     func ping(timeout: Duration) async throws {}

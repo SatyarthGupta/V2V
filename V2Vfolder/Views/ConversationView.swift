@@ -155,6 +155,8 @@ private struct ErrorBanner: View {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.red.opacity(0.12), in: .rect(cornerRadius: 16))
+        // A container keeps the Retry button's own identifier instead of overwriting it.
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("errorBanner")
     }
 }

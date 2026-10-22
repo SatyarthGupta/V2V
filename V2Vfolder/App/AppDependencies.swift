@@ -28,6 +28,24 @@ final class AppDependencies {
         return assemble(session: session, container: makeContainer(inMemory: false))
     }
 
+    /// Real services normally; scripted fakes when launched by UI tests with `-uiTestFakes`.
+    static func forLaunch(arguments: [String] = ProcessInfo.processInfo.arguments) -> AppDependencies {
+        guard arguments.contains("-uiTestFakes") else { return live() }
+        if arguments.contains("-uiTestResetDefaults") {
+            UserDefaults.standard.removeObject(forKey: ConversationViewModel.personaKey)
+        }
+        let client = FakeRealtimeClient()
+        client.scriptedGreeting = "Hello from the fake assistant"
+        let session = VoiceSessionDependencies(
+            permissions: FakePermissionService(status: arguments.contains("-uiTestMicDenied") ? .denied : .granted),
+            tokens: FakeTokenService(error: arguments.contains("-uiTestTokenFailure") ? SessionError.tokenServerUnreachable : nil),
+            audioSession: FakeAudioSessionManager(),
+            makeRealtimeClient: { client },
+            makeAudioEngine: { FakeAudioEngine() }
+        )
+        return assemble(session: session, container: makeContainer(inMemory: true))
+    }
+
     static func assemble(session: VoiceSessionDependencies, container: ModelContainer) -> AppDependencies {
         let store = ConversationStore(container: container)
         let controller = VoiceSessionController(dependencies: session)
